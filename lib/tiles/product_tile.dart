@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/datas/product_data.dart';
+import 'package:loja_virtual/screens/product_screeen.dart';
 
 class ProductTile extends StatelessWidget {
   ProductTile(this.type, this.product);
@@ -9,8 +10,11 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //print(product.images[0]);
     return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ProductScreen(product)));
+      },
       child: Card(
         child: type == 'grid'
             ? Column(
@@ -48,8 +52,6 @@ class ProductTile extends StatelessWidget {
                 ],
               )
             : Row(
-                //crossAxisAlignment: CrossAxisAlignment.stretch,
-                //mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Flexible(
                     flex: 1,
