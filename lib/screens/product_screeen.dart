@@ -14,6 +14,7 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   _ProductScreenState(this.product);
   final ProductData product;
+  String size;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +60,50 @@ class _ProductScreenState extends State<ProductScreen> {
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: primaryColor,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Tamanho',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(
+                  height: 34,
+                  child: GridView(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    scrollDirection: Axis.horizontal,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 1,
+                      mainAxisSpacing: 8,
+                      childAspectRatio: 0.5,
+                    ),
+                    children: product.sizes.map((s) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            size = s;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(4)),
+                            border: Border.all(
+                              color:
+                                  size == s ? primaryColor : Colors.grey[500],
+                              width: 3,
+                            ),
+                          ),
+                          width: 50,
+                          child: Center(
+                            child: Text(s),
+                          ),
+                        ),
+                      );
+                    }).toList(),
                   ),
                 ),
               ],
