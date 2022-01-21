@@ -106,6 +106,39 @@ class _ProductScreenState extends State<ProductScreen> {
                     }).toList(),
                   ),
                 ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  height: 44,
+                  child: TextButton(
+                    onPressed: size == null ? null : () {},
+                    child: const Text(
+                      'Comprar',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.white),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: size != null
+                          ? MaterialStateProperty.all<Color>(primaryColor)
+                          : MaterialStateProperty.all<Color>(Colors.grey[500]),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                const Text(
+                  'Descrição',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  product.description,
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
               ],
             ),
           ),
