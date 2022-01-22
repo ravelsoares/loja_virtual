@@ -1,31 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/screens/signup_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class SignUpScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
+
+  TextEditingController senha = TextEditingController();
+  TextEditingController csenha = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Entrar'),
+        title: const Text('Criar Conta'),
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => SignUpScreen()));
-            },
-            child: const Text(
-              'Criar conta',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-              ),
-            ),
-          )
-        ],
       ),
       body: Form(
         key: _formKey,
@@ -34,8 +21,22 @@ class LoginScreen extends StatelessWidget {
           children: [
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'Email',
                 prefixIcon: Icon(Icons.person),
+                labelText: 'Nome',
+                border: OutlineInputBorder(),
+              ),
+              // ignore: missing_return
+              validator: (text) {
+                if (text.isEmpty) {
+                  return 'Nome inválido';
+                }
+              },
+            ),
+            SizedBox(height: 16),
+            TextFormField(
+              decoration: const InputDecoration(
+                prefixIcon: Icon(Icons.email),
+                labelText: 'Email',
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.emailAddress,
@@ -48,34 +49,41 @@ class LoginScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TextFormField(
+              controller: senha,
               decoration: const InputDecoration(
+                prefixIcon: Icon(Icons.vpn_key),
                 labelText: 'Senha',
-                prefixIcon: Icon(Icons.email),
                 border: OutlineInputBorder(),
               ),
               obscureText: true,
               // ignore: missing_return
               validator: (text) {
-                if (text.isEmpty || text.length < 6) {
-                  return 'Senha inválida';
+                if (senha.text.isEmpty || senha.text.length < 6) {
+                  return 'A senha precisa ter mais de 6 digitos';
                 }
               },
               focusNode: FocusNode(),
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Esqueci minha senha',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
             const SizedBox(height: 16),
+            TextFormField(
+              controller: csenha,
+              decoration: const InputDecoration(
+                prefixIcon: Icon(Icons.vpn_key),
+                labelText: 'Confirme a Senha',
+                border: OutlineInputBorder(),
+              ),
+              obscureText: true,
+              // ignore: missing_return
+              validator: (text) {
+                if (csenha.text.isEmpty || csenha.text.length < 6) {
+                  return 'A senha precisa ter mais de 6 digitos';
+                } else if (csenha.text != senha.text) {
+                  return 'As senhas estão diferentes';
+                }
+              },
+              focusNode: FocusNode(),
+            ),
+            SizedBox(height: 20),
             SizedBox(
               height: 44,
               child: TextButton(
@@ -83,7 +91,7 @@ class LoginScreen extends StatelessWidget {
                   if (_formKey.currentState.validate()) {}
                 },
                 child: const Text(
-                  'Entrar',
+                  'Criar Conta',
                   style: TextStyle(
                     color: Colors.white,
                   ),
