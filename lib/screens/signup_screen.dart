@@ -10,6 +10,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController _name = TextEditingController();
   TextEditingController _email = TextEditingController();
@@ -19,6 +20,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: const Text('Criar Conta'),
         centerTitle: true,
@@ -27,7 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: ScopedModelDescendant<UserModel>(
         builder: (context, child, model) {
           if (model.isLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -50,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     }
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
                   controller: _email,
                   decoration: const InputDecoration(
@@ -103,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   },
                   focusNode: FocusNode(),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 SizedBox(
                   height: 44,
                   child: TextButton(
@@ -123,7 +125,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           'email': _email.text,
                         };
 
-                        model.singUp(
+                        model.signUp(
                           userData: userData,
                           pass: _senha.text,
                           onSucesss: _onSucess,
@@ -141,7 +143,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void _onSucess() {}
+  void _onSucess() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Usuário criado com sucesso!'),
+        backgroundColor: Theme.of(context).primaryColor,
+        duration: const Duration(seconds: 2),
+      ),
+    );
 
-  void _onFail() {}
+    Future.delayed(Duration(seconds: 2)).then((_) {
+      Navigator.of(context).pop();
+    });
+  }
+
+  void _onFail() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Falha ao criar usuário!'),
+        backgroundColor: Colors.black,
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 }

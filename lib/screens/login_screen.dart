@@ -100,7 +100,7 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () {
                       if (_formKey.currentState.validate()) {}
 
-                      model.singIn();
+                      model.signIn();
                     },
                   ),
                 ),

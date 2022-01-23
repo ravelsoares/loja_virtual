@@ -11,7 +11,7 @@ class UserModel extends Model {
 
   bool isLoading = false;
 
-  void singUp(
+  void signUp(
       {@required Map<String, dynamic> userData,
       @required String pass,
       @required VoidCallback onSucesss,
@@ -39,7 +39,7 @@ class UserModel extends Model {
     });
   }
 
-  void singIn() async {
+  void signIn() async {
     isLoading = true;
     notifyListeners();
 
@@ -49,7 +49,19 @@ class UserModel extends Model {
     notifyListeners();
   }
 
+  void signOut() async {
+    _auth.signOut();
+
+    userData = Map();
+    firebaseUser = null;
+    notifyListeners();
+  }
+
   void recoverPass() {}
+
+  bool isLoggedIn() {
+    return firebaseUser != null;
+  }
 
   Future<Null> _saveUserData(Map<String, dynamic> userData) async {
     this.userData = userData;
