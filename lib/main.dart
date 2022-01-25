@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/models/cart_model.dart';
 import 'package:loja_virtual/models/user_model.dart';
 import 'package:loja_virtual/screens/home_screen.dart';
 import 'package:loja_virtual/screens/login_screen.dart';
@@ -14,16 +15,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScopedModel<UserModel>(
-      model: UserModel(),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primaryColor: const Color.fromARGB(255, 112, 0, 6),
-          backgroundColor: Color.fromARGB(255, 112, 0, 6),
-        ),
-        debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
-      ),
-    );
+        model: UserModel(),
+        child: ScopedModelDescendant(builder: (context, child, model) {
+          return ScopedModel<CartModel>(
+            model: CartModel(model),
+            child: MaterialApp(
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                primaryColor: const Color.fromARGB(255, 112, 0, 6),
+                backgroundColor: Color.fromARGB(255, 112, 0, 6),
+              ),
+              debugShowCheckedModeBanner: false,
+              home: HomeScreen(),
+            ),
+          );
+        }));
   }
 }
