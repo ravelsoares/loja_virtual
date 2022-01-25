@@ -92,7 +92,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_emailController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Insira email!'),
+                            backgroundColor: Colors.black,
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      } else {
+                        model.recoverPass(_emailController.text);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Confira seu email!'),
+                            backgroundColor: Theme.of(context).primaryColor,
+                            duration: const Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                    },
                     child: const Text(
                       'Esqueci minha senha',
                       textAlign: TextAlign.right,
@@ -116,9 +135,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         backgroundColor: MaterialStateProperty.all<Color>(
                             Theme.of(context).primaryColor)),
                     onPressed: () {
-                      print('oi');
-                      print(_emailController.text);
-                      print(_passController.text);
                       if (_formKey.currentState.validate()) {}
 
                       model.signIn(
