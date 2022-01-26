@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   decoration: const InputDecoration(
                     labelText: 'Email',
-                    prefixIcon: Icon(Icons.person),
+                    prefixIcon: Icon(Icons.email),
                     border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.emailAddress,
@@ -69,14 +69,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _passController,
                   decoration: InputDecoration(
                     labelText: 'Senha',
-                    prefixIcon: Icon(Icons.email),
+                    prefixIcon: Icon(Icons.vpn_key),
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
                           ocultarSenha = !ocultarSenha;
                         });
                       },
-                      icon: Icon(Icons.remove_red_eye),
+                      icon: ocultarSenha
+                          ? Icon(Icons.visibility)
+                          : Icon(Icons.visibility_off),
                     ),
                     border: OutlineInputBorder(),
                   ),

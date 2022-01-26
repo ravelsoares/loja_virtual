@@ -1,8 +1,7 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:loja_virtual/datas/card_product.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:loja_virtual/datas/cart_product.dart';
 import 'package:loja_virtual/models/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -10,9 +9,12 @@ class CartModel extends Model {
   UserModel user;
   CartModel(this.user);
 
-  List<CardProduct> products = [];
+  List<CartProduct> products = [];
 
-  void addCartItem(CardProduct cardProduct) {
+  static CartModel of(BuildContext context) =>
+      ScopedModel.of<CartModel>(context);
+
+  void addCartItem(CartProduct cardProduct) {
     products.add(cardProduct);
 
     Firestore.instance
@@ -27,7 +29,7 @@ class CartModel extends Model {
     notifyListeners();
   }
 
-  void removeCartItem(CardProduct cardProduct) {
+  void removeCartItem(CartProduct cardProduct) {
     Firestore.instance
         .collection('users')
         .document(user.firebaseUser.uid)
