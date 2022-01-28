@@ -7,7 +7,11 @@ import 'package:scoped_model/scoped_model.dart';
 
 class CartModel extends Model {
   UserModel user;
-  CartModel(this.user);
+  CartModel(this.user) {
+    if (user.isLoggedIn()) {
+      _loadcartItems();
+    }
+  }
 
   List<CartProduct> products = [];
 
@@ -15,6 +19,32 @@ class CartModel extends Model {
 
   static CartModel of(BuildContext context) =>
       ScopedModel.of<CartModel>(context);
+
+  void DecProduct(CartProduct product) {
+    product.quantity--;
+
+    Firestore.instance
+        .collection('users')
+        .document(user.firebaseUser.uid)
+        .collection('cart')
+        .document(product.cid)
+        .updateData(product.toMap());
+
+    notifyListeners();
+  }
+
+  void IncProduct(CartProduct product) {
+    product.quantity++;
+
+    Firestore.instance
+        .collection('users')
+        .document(user.firebaseUser.uid)
+        .collection('cart')
+        .document(product.cid)
+        .updateData(product.toMap());
+
+    notifyListeners();
+  }
 
   void addCartItem(CartProduct cardProduct) {
     products.add(cardProduct);
@@ -40,6 +70,19 @@ class CartModel extends Model {
         .delete();
 
     products.remove(cardProduct);
+
+    notifyListeners();
+  }
+
+  void _loadcartItems() async {
+    QuerySnapshot query = await Firestore.instance
+        .collection('users')
+        .document(user.firebaseUser.uid)
+        .collection('cart')
+        .getDocuments();
+
+    products =
+        query.documents.map((doc) => CartProduct.fromDocument(doc)).toList();
 
     notifyListeners();
   }
