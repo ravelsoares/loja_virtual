@@ -54,7 +54,7 @@ class CartTile extends StatelessWidget {
                       IconButton(
                         onPressed: product.quantity > 1
                             ? () {
-                                CartModel.of(context).DecProduct(product);
+                                CartModel.of(context).decProduct(product);
                               }
                             : null,
                         icon: Icon(
@@ -67,7 +67,7 @@ class CartTile extends StatelessWidget {
                       Text(product.quantity.toString()),
                       IconButton(
                         onPressed: () {
-                          CartModel.of(context).IncProduct(product);
+                          CartModel.of(context).incProduct(product);
                         },
                         icon: Icon(
                           Icons.add,
@@ -82,7 +82,7 @@ class CartTile extends StatelessWidget {
                           'Remover',
                           style: TextStyle(color: Colors.grey[500]),
                         ),
-                        style: ButtonStyle(),
+                        style: const ButtonStyle(),
                       ),
                     ],
                   ),

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:loja_virtual/datas/cart_product.dart';
 import 'package:loja_virtual/models/user_model.dart';
@@ -15,12 +14,15 @@ class CartModel extends Model {
 
   List<CartProduct> products = [];
 
+  String couponCode;
+  int discountPercentage = 0;
+
   bool isLoading = false;
 
   static CartModel of(BuildContext context) =>
       ScopedModel.of<CartModel>(context);
 
-  void DecProduct(CartProduct product) {
+  void decProduct(CartProduct product) {
     product.quantity--;
 
     Firestore.instance
@@ -33,7 +35,7 @@ class CartModel extends Model {
     notifyListeners();
   }
 
-  void IncProduct(CartProduct product) {
+  void incProduct(CartProduct product) {
     product.quantity++;
 
     Firestore.instance
@@ -72,6 +74,11 @@ class CartModel extends Model {
     products.remove(cardProduct);
 
     notifyListeners();
+  }
+
+  void setCoupon(String couponCode, int discountPercentage) {
+    this.couponCode = couponCode;
+    this.discountPercentage = discountPercentage;
   }
 
   void _loadcartItems() async {

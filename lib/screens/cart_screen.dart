@@ -3,6 +3,7 @@ import 'package:loja_virtual/models/cart_model.dart';
 import 'package:loja_virtual/models/user_model.dart';
 import 'package:loja_virtual/screens/login_screen.dart';
 import 'package:loja_virtual/tiles/cart_tile.dart';
+import 'package:loja_virtual/wigdets/discount_card.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class CartScreen extends StatelessWidget {
@@ -95,6 +96,7 @@ class CartScreen extends StatelessWidget {
                   return CartTile(product);
                 }).toList(),
               ),
+              Discountcard(),
             ],
           );
         }
