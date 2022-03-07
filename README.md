@@ -1,16 +1,13 @@
-# loja_virtual
+# Loja Virtual
 
-A new Flutter project.
+Projeto desenvolvido no curso de flutter
 
-## Getting Started
+Esse projeto tem como objetivo aprofundar os conhecimentos em flutter
 
-This project is a starting point for a Flutter application.
+![home_screen](https://github.com/ravelsoares/loja_virtual/blob/main/Screenshot_20220307-193920.jpg)
+![drawer_screen](https://github.com/ravelsoares/loja_virtual/blob/main/Screenshot_20220307-193946.jpg)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<div>
+ ​    <img src="https://github.com/ravelsoares/loja_virtual/blob/main/Screenshot_20220307-193920.jpg" alt="demo-mobile" height="425">
+ ​    <img src="https://github.com/ravelsoares/loja_virtual/blob/main/Screenshot_20220307-182339.jpg" alt="demo-mobile" height="425">
+<div>
